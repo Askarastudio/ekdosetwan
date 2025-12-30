@@ -15,6 +15,30 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+
+                    @can('view-kendaraan')
+                    <x-nav-link :href="route('admin.kendaraan.index')" :active="request()->routeIs('admin.kendaraan.*')">
+                        {{ __('Kendaraan') }}
+                    </x-nav-link>
+                    @endcan
+
+                    @can('view-supir')
+                    <x-nav-link :href="route('admin.supir.index')" :active="request()->routeIs('admin.supir.*')">
+                        {{ __('Supir') }}
+                    </x-nav-link>
+                    @endcan
+
+                    @can('create-peminjaman')
+                    <x-nav-link :href="route('peminjaman.index')" :active="request()->routeIs('peminjaman.*')">
+                        {{ __('Peminjaman') }}
+                    </x-nav-link>
+                    @endcan
+
+                    @can('view-settings')
+                    <x-nav-link :href="route('admin.settings.index')" :active="request()->routeIs('admin.settings.*')">
+                        {{ __('Pengaturan') }}
+                    </x-nav-link>
+                    @endcan
                 </div>
             </div>
 
