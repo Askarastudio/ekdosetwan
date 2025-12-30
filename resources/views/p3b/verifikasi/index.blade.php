@@ -89,16 +89,15 @@
                                     <form action="{{ route('p3b.verifikasi.verify', $peminjaman) }}" method="POST">
                                         @csrf
                                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                            <div>
-                                                <label for="kendaraan_id_{{ $peminjaman->id }}" class="block text-sm font-medium text-gray-700">Pilih Kendaraan *</label>
-                                                <select name="kendaraan_id" id="kendaraan_id_{{ $peminjaman->id }}" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                                                    <option value="">-- Pilih Kendaraan --</option>
-                                                    @foreach($kendaraans as $kendaraan)
-                                                    <option value="{{ $kendaraan->id }}">
-                                                        {{ $kendaraan->merk }} {{ $kendaraan->tipe }} - {{ $kendaraan->nomor_polisi }}
-                                                    </option>
-                                                    @endforeach
-                                                </select>
+                                            <div class="bg-gray-50 rounded-md p-4 border border-dashed border-gray-200">
+                                                <p class="text-sm font-semibold text-gray-700 mb-2">Kendaraan yang diajukan</p>
+                                                @if($peminjaman->kendaraan)
+                                                    <p class="text-base font-semibold text-gray-900">{{ $peminjaman->kendaraan->merk }} {{ $peminjaman->kendaraan->tipe }}</p>
+                                                    <p class="text-sm text-gray-700">Nomor Polisi: {{ $peminjaman->kendaraan->nomor_polisi }}</p>
+                                                    <p class="text-sm text-gray-500 mt-1">Dipilih oleh pemohon saat pengajuan.</p>
+                                                @else
+                                                    <p class="text-sm text-red-600">Belum ada kendaraan dipilih oleh pemohon. Mohon hubungi pemohon.</p>
+                                                @endif
                                             </div>
 
                                             <div>
@@ -123,7 +122,7 @@
                                             <button type="button" @click="showForm = false" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
                                                 Batal
                                             </button>
-                                            <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700">
+                                            <button type="submit" @if(!$peminjaman->kendaraan) disabled class="px-4 py-2 text-sm font-medium text-white bg-blue-300 border border-transparent rounded-md cursor-not-allowed" @else class="px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700" @endif>
                                                 Verifikasi
                                             </button>
                                         </div>

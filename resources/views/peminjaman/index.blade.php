@@ -2,7 +2,11 @@
     <x-slot name="header">
         <div class="flex justify-between items-center">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Riwayat Peminjaman Saya') }}
+                @if(auth()->user()->hasAnyRole(['P3B', 'Pengurus Barang']))
+                    {{ __('Daftar Semua Peminjaman') }}
+                @else
+                    {{ __('Riwayat Peminjaman Saya') }}
+                @endif
             </h2>
             @if(auth()->user()->canBorrow())
             <a href="{{ route('peminjaman.create') }}" class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700">
@@ -36,6 +40,9 @@
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No. Pengajuan</th>
+                                    @if(auth()->user()->hasAnyRole(['P3B', 'Pengurus Barang']))
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pemohon</th>
+                                    @endif
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kendaraan</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tujuan</th>
@@ -46,6 +53,11 @@
                             <tbody class="bg-white divide-y divide-gray-200">
                                 @forelse($peminjamans as $peminjaman)
                                 <tr>
+                                    @if(auth()->user()->hasAnyRole(['P3B', 'Pengurus Barang']))
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                                        {{ $peminjaman->user->name ?? 'Pengguna' }}
+                                    </td>
+                                    @endif
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                         #{{ str_pad($peminjaman->id, 5, '0', STR_PAD_LEFT) }}
                                     </td>

@@ -11,17 +11,17 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-4">
             @if(session('success'))
-            <div class="bg-green-50 border-l-4 border-green-400 p-4 mb-6">
+            <div class="bg-green-50 border-l-4 border-green-400 p-4 mb-2 card-animate">
                 <p class="text-sm text-green-700">{{ session('success') }}</p>
             </div>
             @endif
 
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="bg-white overflow-hidden rounded-xl card-animate">
                 <div class="p-6">
                     <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200">
+                        <table class="min-w-full divide-y divide-gray-200 table-animate">
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Foto</th>
@@ -55,9 +55,9 @@
                                         </a>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                                            @if($supir->status_ketersediaan === 'Standby') bg-green-100 text-green-800
-                                            @else bg-yellow-100 text-yellow-800
+                                        <span class="badge-soft 
+                                            @if($supir->status_ketersediaan === 'Standby') bg-green-50 text-green-700
+                                            @else bg-yellow-50 text-yellow-700
                                             @endif">
                                             {{ $supir->status_ketersediaan }}
                                         </span>

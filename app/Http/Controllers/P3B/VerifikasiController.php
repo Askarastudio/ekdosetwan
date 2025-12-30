@@ -17,10 +17,9 @@ class VerifikasiController extends Controller
             ->latest()
             ->get();
 
-        $kendaraans = Kendaraan::where('status_kondisi', '!=', 'Rusak')->get();
         $supirs = Supir::where('status_ketersediaan', 'Standby')->get();
 
-        return view('p3b.verifikasi.index', compact('peminjamanMenunggu', 'kendaraans', 'supirs'));
+        return view('p3b.verifikasi.index', compact('peminjamanMenunggu', 'supirs'));
     }
 
     public function verify(Request $request, Peminjaman $peminjaman)
@@ -29,14 +28,17 @@ class VerifikasiController extends Controller
             return back()->with('error', 'Peminjaman sudah diproses sebelumnya.');
         }
 
+        if (!$peminjaman->kendaraan_id) {
+            return back()->with('error', 'Kendaraan belum dipilih oleh pemohon. Mohon hubungi pemohon untuk melengkapi.');
+        }
+
         $validated = $request->validate([
-            'kendaraan_id' => 'required|exists:kendaraans,id',
             'supir_id' => 'required|exists:supirs,id',
             'catatan_verifikator' => 'nullable|string',
         ]);
 
         // Check vehicle availability
-        $kendaraan = Kendaraan::find($validated['kendaraan_id']);
+        $kendaraan = $peminjaman->kendaraan ?? Kendaraan::find($peminjaman->kendaraan_id);
         if (!$kendaraan->isAvailable($peminjaman->tanggal_mulai, $peminjaman->tanggal_selesai, $peminjaman->id)) {
             return back()->with('error', 'Kendaraan yang dipilih tidak tersedia pada tanggal tersebut.');
         }
@@ -48,7 +50,7 @@ class VerifikasiController extends Controller
         }
 
         $peminjaman->update([
-            'kendaraan_id' => $validated['kendaraan_id'],
+            'kendaraan_id' => $peminjaman->kendaraan_id,
             'supir_id' => $validated['supir_id'],
             'catatan_verifikator' => $validated['catatan_verifikator'],
             'verified_by' => auth()->id(),
@@ -57,7 +59,7 @@ class VerifikasiController extends Controller
         ]);
 
         return redirect()->route('p3b.verifikasi.index')
-            ->with('success', 'Peminjaman berhasil diverifikasi dan kendaraan/supir telah ditugaskan.');
+            ->with('success', 'Peminjaman berhasil diverifikasi dan supir telah ditugaskan.');
     }
 
     public function reject(Request $request, Peminjaman $peminjaman)

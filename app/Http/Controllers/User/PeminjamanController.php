@@ -13,10 +13,20 @@ class PeminjamanController extends Controller
 {
     public function index()
     {
-        $peminjamans = Peminjaman::where('user_id', auth()->id())
-            ->with(['kendaraan', 'supir'])
-            ->latest()
-            ->paginate(10);
+        $user = auth()->user();
+        
+        // P3B dan Pengurus Barang dapat melihat semua peminjaman
+        if ($user->hasAnyRole(['P3B', 'Pengurus Barang'])) {
+            $peminjamans = Peminjaman::with(['kendaraan', 'supir', 'user'])
+                ->latest()
+                ->paginate(10);
+        } else {
+            // User normal hanya melihat peminjaman mereka sendiri
+            $peminjamans = Peminjaman::where('user_id', auth()->id())
+                ->with(['kendaraan', 'supir'])
+                ->latest()
+                ->paginate(10);
+        }
 
         return view('peminjaman.index', compact('peminjamans'));
     }

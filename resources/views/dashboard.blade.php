@@ -8,7 +8,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <!-- Welcome Message -->
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="bg-white overflow-hidden rounded-xl card-animate">
                 <div class="p-6">
                     <h3 class="text-lg font-semibold text-gray-900">Selamat Datang, {{ auth()->user()->name }}!</h3>
                     <p class="mt-1 text-sm text-gray-600">Sistem E-Peminjaman Kendaraan Dinas Operasional</p>
@@ -26,7 +26,7 @@
 
             <!-- Active Peminjaman Warning -->
             @if($activePeminjaman)
-            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-lg">
+            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-lg card-animate">
                 <div class="flex">
                     <div class="flex-shrink-0">
                         <svg class="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
@@ -53,7 +53,7 @@
 
             <!-- Cooldown Period Warning -->
             @if(!$canBorrow && !$activePeminjaman)
-            <div class="bg-red-50 border-l-4 border-red-400 p-4 rounded-lg">
+            <div class="bg-red-50 border-l-4 border-red-400 p-4 rounded-lg card-animate">
                 <div class="flex">
                     <div class="flex-shrink-0">
                         <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
@@ -72,7 +72,7 @@
 
             <!-- Can Borrow - Show Quick Action -->
             @if($canBorrow && !$activePeminjaman)
-            <div class="bg-green-50 border-l-4 border-green-400 p-4 rounded-lg">
+            <div class="bg-green-50 border-l-4 border-green-400 p-4 rounded-lg card-animate">
                 <div class="flex items-center justify-between">
                     <div class="flex">
                         <div class="flex-shrink-0">
@@ -95,12 +95,12 @@
             @endrole
 
             <!-- Quick Links -->
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="bg-white overflow-hidden rounded-xl card-animate">
                 <div class="p-6">
                     <h3 class="text-lg font-semibold text-gray-900 mb-4">Menu Cepat</h3>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         @role('User')
-                        <a href="{{ route('peminjaman.index') }}" class="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition">
+                        <a href="{{ route('peminjaman.index') }}" class="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition card-animate" style="box-shadow:none;">
                             <svg class="w-8 h-8 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
                             </svg>
@@ -112,7 +112,7 @@
                         @endrole
 
                         @role('Admin')
-                        <a href="{{ route('admin.kendaraan.index') }}" class="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition">
+                        <a href="{{ route('admin.kendaraan.index') }}" class="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition card-animate" style="box-shadow:none;">
                             <svg class="w-8 h-8 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"/>
                             </svg>
@@ -121,7 +121,7 @@
                                 <p class="text-sm text-gray-600">Manage kendaraan dinas</p>
                             </div>
                         </a>
-                        <a href="{{ route('admin.supir.index') }}" class="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition">
+                        <a href="{{ route('admin.supir.index') }}" class="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition card-animate" style="box-shadow:none;">
                             <svg class="w-8 h-8 text-green-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
                             </svg>
@@ -133,7 +133,7 @@
                         @endrole
 
                         @role('P3B')
-                        <a href="{{ route('p3b.verifikasi.index') }}" class="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition">
+                        <a href="{{ route('p3b.verifikasi.index') }}" class="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition card-animate" style="box-shadow:none;">
                             <svg class="w-8 h-8 text-yellow-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                             </svg>
@@ -145,7 +145,7 @@
                         @endrole
 
                         @role('Pengurus Barang')
-                        <a href="{{ route('pengurus-barang.approval.index') }}" class="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition">
+                        <a href="{{ route('pengurus-barang.approval.index') }}" class="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition card-animate" style="box-shadow:none;">
                             <svg class="w-8 h-8 text-purple-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                             </svg>
