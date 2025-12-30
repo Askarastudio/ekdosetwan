@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\KendaraanController;
 use App\Http\Controllers\Admin\SupirController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\AuditLogController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\User\PeminjamanController;
 use App\Http\Controllers\P3B\VerifikasiController;
 use App\Http\Controllers\PengurusBarang\ApprovalController;
@@ -32,6 +34,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
         Route::post('settings', [SettingController::class, 'update'])->name('settings.update');
         Route::get('audit-logs', [AuditLogController::class, 'index'])->name('audit-logs.index');
+        Route::resource('users', UserController::class)->except(['show']);
+        Route::resource('roles', RoleController::class)->except(['show']);
     });
 
     // P3B Routes
@@ -60,6 +64,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/calendar/data', [PeminjamanController::class, 'calendarData'])->name('calendar.data');
         Route::get('/check-availability', [PeminjamanController::class, 'checkAvailability'])->name('check-availability');
     });
+
+    // API Routes for calendar
+    Route::get('/api/kendaraan/{kendaraan}/bookings', [PeminjamanController::class, 'getBookings'])->name('api.kendaraan.bookings');
 });
 
 require __DIR__.'/auth.php';

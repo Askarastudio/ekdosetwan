@@ -58,21 +58,27 @@ class RolePermissionSeeder extends Seeder
             'create-users',
             'edit-users',
             'delete-users',
+
+            // Role management permissions
+            'view-roles',
+            'create-roles',
+            'edit-roles',
+            'delete-roles',
         ];
 
         foreach ($permissions as $permission) {
-            Permission::create(['name' => $permission]);
+            Permission::firstOrCreate(['name' => $permission]);
         }
 
         // Create roles and assign permissions
 
         // Admin role - has all permissions
-        $adminRole = Role::create(['name' => 'Admin']);
-        $adminRole->givePermissionTo(Permission::all());
+        $adminRole = Role::firstOrCreate(['name' => 'Admin']);
+        $adminRole->syncPermissions(Permission::all());
 
         // P3B (Kassubag Perlengkapan) role
-        $p3bRole = Role::create(['name' => 'P3B']);
-        $p3bRole->givePermissionTo([
+        $p3bRole = Role::firstOrCreate(['name' => 'P3B']);
+        $p3bRole->syncPermissions([
             'view-kendaraan',
             'view-supir',
             'view-peminjaman',
@@ -83,8 +89,8 @@ class RolePermissionSeeder extends Seeder
         ]);
 
         // Pengurus Barang role
-        $pengurusBarangRole = Role::create(['name' => 'Pengurus Barang']);
-        $pengurusBarangRole->givePermissionTo([
+        $pengurusBarangRole = Role::firstOrCreate(['name' => 'Pengurus Barang']);
+        $pengurusBarangRole->syncPermissions([
             'view-kendaraan',
             'view-supir',
             'view-peminjaman',
@@ -96,47 +102,55 @@ class RolePermissionSeeder extends Seeder
         ]);
 
         // User (Anggota Dewan) role
-        $userRole = Role::create(['name' => 'User']);
-        $userRole->givePermissionTo([
+        $userRole = Role::firstOrCreate(['name' => 'User']);
+        $userRole->syncPermissions([
             'view-kendaraan',
             'view-peminjaman',
             'create-peminjaman',
         ]);
 
         // Create default admin user
-        $admin = User::create([
-            'name' => 'Administrator',
-            'email' => 'admin@ekdosetwan.com',
-            'phone' => '081234567890',
-            'password' => bcrypt('password'),
-        ]);
-        $admin->assignRole('Admin');
+        $admin = User::firstOrCreate(
+            ['email' => 'admin@ekdosetwan.com'],
+            [
+                'name' => 'Administrator',
+                'phone' => '081234567890',
+                'password' => bcrypt('password'),
+            ]
+        );
+        $admin->syncRoles(['Admin']);
 
         // Create P3B user
-        $p3b = User::create([
-            'name' => 'Kassubag Perlengkapan',
-            'email' => 'p3b@ekdosetwan.com',
-            'phone' => '081234567891',
-            'password' => bcrypt('password'),
-        ]);
-        $p3b->assignRole('P3B');
+        $p3b = User::firstOrCreate(
+            ['email' => 'p3b@ekdosetwan.com'],
+            [
+                'name' => 'Kassubag Perlengkapan',
+                'phone' => '081234567891',
+                'password' => bcrypt('password'),
+            ]
+        );
+        $p3b->syncRoles(['P3B']);
 
         // Create Pengurus Barang user
-        $pengurusBarang = User::create([
-            'name' => 'Pengurus Barang',
-            'email' => 'pengurus@ekdosetwan.com',
-            'phone' => '081234567892',
-            'password' => bcrypt('password'),
-        ]);
-        $pengurusBarang->assignRole('Pengurus Barang');
+        $pengurusBarang = User::firstOrCreate(
+            ['email' => 'pengurus@ekdosetwan.com'],
+            [
+                'name' => 'Pengurus Barang',
+                'phone' => '081234567892',
+                'password' => bcrypt('password'),
+            ]
+        );
+        $pengurusBarang->syncRoles(['Pengurus Barang']);
 
         // Create sample user
-        $user = User::create([
-            'name' => 'Anggota Dewan',
-            'email' => 'user@ekdosetwan.com',
-            'phone' => '081234567893',
-            'password' => bcrypt('password'),
-        ]);
-        $user->assignRole('User');
+        $user = User::firstOrCreate(
+            ['email' => 'user@ekdosetwan.com'],
+            [
+                'name' => 'Anggota Dewan',
+                'phone' => '081234567893',
+                'password' => bcrypt('password'),
+            ]
+        );
+        $user->syncRoles(['User']);
     }
 }

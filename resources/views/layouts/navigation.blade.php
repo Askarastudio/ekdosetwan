@@ -28,6 +28,18 @@
                     </x-nav-link>
                     @endcan
 
+                    @can('view-users')
+                    <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">
+                        {{ __('User') }}
+                    </x-nav-link>
+                    @endcan
+
+                    @can('view-roles')
+                    <x-nav-link :href="route('admin.roles.index')" :active="request()->routeIs('admin.roles.*')">
+                        {{ __('Role') }}
+                    </x-nav-link>
+                    @endcan
+
                     @can('create-peminjaman')
                     <x-nav-link :href="route('peminjaman.index')" :active="request()->routeIs('peminjaman.*')">
                         {{ __('Peminjaman') }}
@@ -94,6 +106,42 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+
+            @can('view-kendaraan')
+            <x-responsive-nav-link :href="route('admin.kendaraan.index')" :active="request()->routeIs('admin.kendaraan.*')">
+                {{ __('Kendaraan') }}
+            </x-responsive-nav-link>
+            @endcan
+
+            @can('view-supir')
+            <x-responsive-nav-link :href="route('admin.supir.index')" :active="request()->routeIs('admin.supir.*')">
+                {{ __('Supir') }}
+            </x-responsive-nav-link>
+            @endcan
+
+            @can('view-users')
+            <x-responsive-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">
+                {{ __('User') }}
+            </x-responsive-nav-link>
+            @endcan
+
+            @can('view-roles')
+            <x-responsive-nav-link :href="route('admin.roles.index')" :active="request()->routeIs('admin.roles.*')">
+                {{ __('Role') }}
+            </x-responsive-nav-link>
+            @endcan
+
+            @can('create-peminjaman')
+            <x-responsive-nav-link :href="route('peminjaman.index')" :active="request()->routeIs('peminjaman.*')">
+                {{ __('Peminjaman') }}
+            </x-responsive-nav-link>
+            @endcan
+
+            @can('view-settings')
+            <x-responsive-nav-link :href="route('admin.settings.index')" :active="request()->routeIs('admin.settings.*')">
+                {{ __('Pengaturan') }}
+            </x-responsive-nav-link>
+            @endcan
         </div>
 
         <!-- Responsive Settings Options -->

@@ -78,14 +78,21 @@
                                 </dl>
 
                                 <div class="flex space-x-2">
-                                    <button @click="showApprove = !showApprove" class="inline-flex items-center px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-700">
-                                        Setujui
+                                    <button @click="showApprove = !showApprove" title="Setujui" class="inline-flex items-center justify-center h-9 w-9 rounded bg-green-600 text-white hover:bg-green-700 transition">
+                                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                        </svg>
                                     </button>
-                                    <button @click="showReject = !showReject" class="inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700">
-                                        Tolak
+                                    <button @click="showReject = !showReject" title="Tolak" class="inline-flex items-center justify-center h-9 w-9 rounded bg-red-600 text-white hover:bg-red-700 transition">
+                                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
                                     </button>
-                                    <a href="{{ route('peminjaman.show', $peminjaman) }}" class="inline-flex items-center px-4 py-2 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700">
-                                        Detail
+                                    <a href="{{ route('peminjaman.show', $peminjaman) }}" title="Detail" class="inline-flex items-center justify-center h-9 w-9 rounded bg-gray-600 text-white hover:bg-gray-700 transition">
+                                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                        </svg>
                                     </a>
                                 </div>
 

@@ -25,7 +25,17 @@ class PeminjamanController extends Controller
     {
         $user = auth()->user();
         
-        // Check cooldown
+        // Check if user has active peminjaman (exclude rejected)
+        $activePeminjaman = $user->peminjamans()
+            ->whereIn('status', ['Proses', 'Diverifikasi', 'Disetujui'])
+            ->first();
+        
+        if ($activePeminjaman) {
+            return redirect()->route('dashboard')
+                ->with('error', 'Anda masih memiliki peminjaman aktif (Nomor: #' . str_pad($activePeminjaman->id, 5, '0', STR_PAD_LEFT) . '). Harap selesaikan peminjaman tersebut terlebih dahulu.');
+        }
+        
+        // Check cooldown (only for completed peminjaman)
         if (!$user->canBorrow()) {
             return redirect()->route('dashboard')
                 ->with('error', 'Anda masih dalam periode cooldown. Dapat meminjam kembali pada ' . $user->nextBorrowDate()->format('d F Y'));
@@ -41,9 +51,18 @@ class PeminjamanController extends Controller
     {
         $user = auth()->user();
         
-        // Check cooldown
+        // Check if user has active peminjaman (exclude rejected)
+        $activePeminjaman = $user->peminjamans()
+            ->whereIn('status', ['Proses', 'Diverifikasi', 'Disetujui'])
+            ->first();
+        
+        if ($activePeminjaman) {
+            return back()->with('error', 'Anda masih memiliki peminjaman aktif. Harap selesaikan peminjaman tersebut terlebih dahulu.');
+        }
+        
+        // Check cooldown (only for completed peminjaman)
         if (!$user->canBorrow()) {
-            return back()->with('error', 'Anda masih dalam periode cooldown.');
+            return back()->with('error', 'Anda masih dalam periode cooldown. Dapat meminjam kembali pada ' . $user->nextBorrowDate()->format('d F Y'));
         }
 
         $maxDays = Setting::get('batas_maksimal_pinjam', 3);
@@ -147,5 +166,26 @@ class PeminjamanController extends Controller
             'Disetujui' => '#10B981',
             default => '#6B7280',
         };
+    }
+
+    public function getBookings($kendaraanId)
+    {
+        $peminjamans = Peminjaman::where('kendaraan_id', $kendaraanId)
+            ->whereIn('status', ['Proses', 'Diverifikasi', 'Disetujui'])
+            ->with('user')
+            ->get();
+
+        $bookings = $peminjamans->map(function ($peminjaman) {
+            return [
+                'id' => $peminjaman->id,
+                'user' => $peminjaman->user->name,
+                'start' => $peminjaman->tanggal_mulai->format('Y-m-d'),
+                'end' => $peminjaman->tanggal_selesai->format('Y-m-d'),
+                'status' => $peminjaman->status,
+                'tujuan' => $peminjaman->tujuan,
+            ];
+        });
+
+        return response()->json(['bookings' => $bookings]);
     }
 }
