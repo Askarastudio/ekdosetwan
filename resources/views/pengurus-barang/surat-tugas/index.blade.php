@@ -90,6 +90,14 @@
                                             title="Download PDF"
                                             class="inline-flex items-center justify-center h-8 w-8 rounded text-red-600 hover:bg-red-50 transition">
                                             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                                            </svg>
+                                        </a>
+                                        
+                                        <a href="{{ route('pengurus-barang.peminjaman.export-word', $surat->peminjaman) }}" 
+                                            title="Export Word (Editable)"
+                                            class="inline-flex items-center justify-center h-8 w-8 rounded text-blue-600 hover:bg-blue-50 transition">
+                                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                                             </svg>
                                         </a>

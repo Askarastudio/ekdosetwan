@@ -53,6 +53,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('surat-tugas', [SuratTugasController::class, 'index'])->name('surat-tugas.index');
         Route::get('surat-tugas/generate/{peminjaman}', [SuratTugasController::class, 'generate'])->name('surat-tugas.generate');
         Route::get('surat-tugas/download/{suratTugas}', [SuratTugasController::class, 'download'])->name('surat-tugas.download');
+        Route::get('peminjaman/{peminjaman}/export-pdf', [SuratTugasController::class, 'exportPdf'])->name('peminjaman.export-pdf');
+        Route::get('peminjaman/{peminjaman}/export-word', [SuratTugasController::class, 'exportWord'])->name('peminjaman.export-word');
     });
 
     // User Routes

@@ -149,8 +149,8 @@
             <div class="container mx-auto px-4 py-10 z-10">
                 <div class="w-full max-w-xl mx-auto space-y-8 animate-fade-up">
                     <div class="flex items-center justify-center">
-                        <div class="p-6 bg-white/25 backdrop-blur-lg rounded-3xl shadow-2xl logo-pulse">
-                            <img src="{{ asset('asset/images/LogoEKDO.png') }}" alt="Logo EKDO" class="w-28 h-28 mx-auto">
+                        <div class="px-8 py-6 bg-white/25 backdrop-blur-lg rounded-3xl shadow-2xl logo-pulse">
+                            <img src="{{ asset('asset/images/LogoEKDO.png') }}" alt="Logo EKDO" class="h-28 w-auto mx-auto">
                         </div>
                     </div>
 

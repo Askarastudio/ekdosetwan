@@ -32,7 +32,9 @@ Aplikasi E-Peminjaman KDO Sekretariat DPRD Provinsi DKI Jakarta - Sistem manajem
 ### 6. Fitur Tambahan
 - Audit log lengkap untuk semua aktivitas
 - Integrasi WhatsApp untuk komunikasi dengan supir (to be completed)
-- Generate Surat Tugas otomatis (PDF) (to be completed)
+- Generate Surat Tugas otomatis (PDF)
+- Export Surat Tugas ke format Word (.docx) untuk editing
+- Cetak ulang Surat Tugas yang sudah disetujui
 - Dashboard berbeda untuk setiap role
 - Mobile-responsive design
 
@@ -42,6 +44,7 @@ Aplikasi E-Peminjaman KDO Sekretariat DPRD Provinsi DKI Jakarta - Sistem manajem
 - **Database**: MySQL/SQLite
 - **Frontend**: Tailwind CSS + Blade
 - **Authentication**: Laravel Breeze
+- **Word Generator**: PHPWord
 - **Permissions**: Spatie Laravel Permission
 - **PDF Generator**: DomPDF
 - **Calendar**: FullCalendar (to be integrated)
@@ -120,7 +123,7 @@ Setelah seeding, Anda dapat login dengan akun berikut:
 ### Roles & Permissions
 - **Admin**: Full access
 - **P3B**: Verifikasi peminjaman, assign kendaraan & supir
-- **Pengurus Barang**: Approval, cetak surat tugas
+- **Pengurus Barang**: Approval, cetak surat tugas, export ke PDF & Word
 - **User**: Ajukan peminjaman
 
 ## Workflow Peminjaman
@@ -142,10 +145,12 @@ Setelah seeding, Anda dapat login dengan akun berikut:
 - Admin, P3B, Pengurus Barang, and User dashboards
 - Kendaraan management (CRUD - partial)
 - Audit logging system
+- PDF generation for Surat Tugas
+- Word export for Surat Tugas (editable format)
+- Reprint functionality for approved Surat Tugas
 - Cooldown period logic
 
 ### In Progress 🚧
-- FullCalendar integration
 - Complete CRUD for all master data
 - Peminjaman workflow implementation
 - PDF generation for Surat Tugas
